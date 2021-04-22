@@ -1,0 +1,19 @@
+#root {
+    height: 100vh;
+}
+
+main {
+    height: 89%;
+}
+.codex-editor {
+    color: white;
+}
+.codex-editor * {
+    background-color: transparent;
+}
+.codex-editor *:hover {
+    background-color: transparent;
+}
+.cdx-notifies {
+    background-color: transparent;
+}
