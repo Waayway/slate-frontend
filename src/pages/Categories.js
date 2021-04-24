@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 export default function Notes() {
     const classes = useStyles();
     const history = useHistory();
-    console.log(history)
     const [parents, setParents] = React.useState([]);
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [inputNameDialog, setInputNameDialog] = React.useState("");
@@ -48,7 +47,6 @@ export default function Notes() {
     const create_a_parent = async () => {
         const parent = await create_parent(inputNameDialog, JSON.stringify([{children: [{text:""}]}]));
         console.log(parent)
-        // history.push("/edit/note/"+note.id)
     }
 
     return !isAuthenticated() ? (<Redirect to="/login" />) :  (
@@ -58,7 +56,7 @@ export default function Notes() {
             </div>
             <GridList cols={3} cellHeight="auto" spacing={10}>
                 {parents.map((parent, index) => 
-                    <Note note={parent} key={index} />
+                    <Note note={parent} key={index} parent={true} />
                 )}
             </GridList>
             <Dialog open={dialogOpen} onClose={closeDialog}>
@@ -83,7 +81,7 @@ export default function Notes() {
                         Cancel
                     </Button>
                     <Button onClick={create_a_parent} color="primary">
-                        Create Note
+                        Create Catagory
                     </Button>
                 </DialogActions>
             </Dialog>

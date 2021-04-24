@@ -89,7 +89,7 @@ export default function AppBar() {
                 </ListItem></Link>
                 <Link component={LinkRouter} to="/categories" color="secondary" onClick={toggleDrawer}><ListItem button>
                     <ListItemIcon><BookmarksIcon /></ListItemIcon>
-                    <ListItemText primary="Categories NOT DONE" />
+                    <ListItemText primary="Categories" />
                 </ListItem></Link>
             </List>
         </Drawer>

@@ -36,3 +36,39 @@ export const create_parent = async (name, content) => {
     }
     return data;
 }
+
+export const link_parent_note = async (parentid, noteid) => {
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+'/parents/link', {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify({
+            parentid: parentid,
+            noteid: noteid
+        })
+    });
+    const response = await fetch(request);
+    const data = await response.text();
+    if (response.status > 400 && response.status < 500) {
+        if (data.detail) {
+            throw data.detail;
+        }
+        throw data;
+    }
+    return data;
+}
+
+
+export const get_parent_from_id = async (id) => {
+    const request = new Request(Address+"/parent/id/"+id.toString())
+    const response = await fetch(request)
+    const data = response.json()
+    if (response.status > 400 && response.status < 500) {
+        if (data.detail) {
+            throw data.detail;
+        }
+        throw data;
+    }
+    return data;
+}

@@ -11,17 +11,19 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: "ellipses",
     },
     GridListTile: {
-        marginLeft: "1em"
+        marginRight: "1em"
     }
 }));
 
 export default function Note(props) {
     const classes = useStyles();
     const note = props.note;
+    const isParent = props.parent;
+    var link = isParent ? "/catagory/"+note.id : "/note/"+note.id;
     const editor = useMemo(() => withReact(createEditor()), [])
     return (
-    <GridListTile className={classes.GridListTile}> 
-        <Link to={"/note/"+note.id} style={{textDecoration: "none"}}>
+    <GridListTile className={classes.GridListTile}>
+        <Link to={link} style={{textDecoration: "none"}}>
             <Card  className={classes.tile}>
                 <CardActionArea>
                     <CardContent>

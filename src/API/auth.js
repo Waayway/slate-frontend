@@ -1,6 +1,6 @@
 // import decodeJWT from 'jwt-decode';
 
-export const Address = `http://${document.location.hostname}:8080`
+export const Address = `http://${document.location.hostname}:8000`
 
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');

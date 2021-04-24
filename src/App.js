@@ -11,6 +11,7 @@ import Logout from "./pages/logout";
 import SignUp from "./pages/SignUp";
 import NoteView from "./pages/NoteView";
 import NoteEdit from './pages/NoteEdit';
+import CatagoryView from "./pages/CatagoryView";
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
         <Route path="/account" component={Account} />
         <Route path="/notes" component={Notes} />
         <Route path="/note/:note" component={NoteView} />
-        <Route path="/categories" component={Categories} />
         <Route path="/edit/note/:note" component={NoteEdit} />
+        <Route path="/categories" component={Categories} />
+        <Route path="/catagory/:parent" component={CatagoryView} /> 
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/" component={HomePage} />
+        <Route path="/" component={HomePage} exact/>
       </Switch>
     </BrowserRouter>
   );
