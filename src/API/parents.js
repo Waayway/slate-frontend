@@ -61,7 +61,9 @@ export const link_parent_note = async (parentid, noteid) => {
 
 
 export const get_parent_from_id = async (id) => {
-    const request = new Request(Address+"/parent/id/"+id.toString())
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/parent/id/"+id.toString(), {headers: header})
     const response = await fetch(request)
     const data = response.json()
     if (response.status > 400 && response.status < 500) {

@@ -6,7 +6,9 @@ export const get_my_notes = async () => {
 }
 
 export const get_note_from_id = async (id) => {
-    const request = new Request(Address+"/notes/id/"+id.toString())
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/notes/id/"+id.toString(), {headers: header})
     const response = await fetch(request)
     const data = response.json()
     if (response.status > 400 && response.status < 500) {

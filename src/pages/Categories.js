@@ -46,7 +46,7 @@ export default function Notes() {
 
     const create_a_parent = async () => {
         const parent = await create_parent(inputNameDialog, JSON.stringify([{children: [{text:""}]}]));
-        console.log(parent)
+        history.push("/edit/catagory/"+parent.id)
     }
 
     return !isAuthenticated() ? (<Redirect to="/login" />) :  (

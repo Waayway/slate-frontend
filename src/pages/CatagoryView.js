@@ -42,6 +42,7 @@ export default function CatagoryView(props) {
   const [parent, setParent] = React.useState();
   const [linkDialogOpen, setLinkDialogOpen] = React.useState(false);
   const [notes, setNotes] = React.useState([]);
+  const [children, setChildren] = React.useState([]);
   
 
   useEffect(() => {
@@ -49,23 +50,36 @@ export default function CatagoryView(props) {
       const parent = await get_parent_from_id(parentid);
       setParent(parent.data);
       const notes = await get_my_notes();
+      var childs = [];
       notes.forEach(note => {
         if (note.parent_id === parent.data.id) {
           note.linked = true;
+          childs.push(note)
         } else {
           note.linked = false;
         }
       });
       setNotes(notes)
-      console.log(notes, parent)
+      setChildren(childs)
     }
     fetchData();
   }, [parentid]);
   
   const checkBoxChange = async (ev) => {
     const id = ev.target.id;
-    const result = await link_parent_note(parentid, id)
-    console.log(result)
+    await link_parent_note(parentid, id)
+    const notes = await get_my_notes();
+    var childs = [];
+      notes.forEach(note => {
+        if (note.parent_id === parent.id) {
+          note.linked = true;
+          childs.push(note)
+        } else {
+          note.linked = false;
+        }
+      });
+      setNotes(notes);
+      setChildren(childs);
   }
 
   return (
@@ -82,7 +96,7 @@ export default function CatagoryView(props) {
         <Typography variant="h2">{parent.name}</Typography>
         <Slate editor={editor} value={JSON.parse(parent.content)}><Editable readOnly renderElement={Element} renderLeaf={Leaf} /></Slate>
         <GridList cols={3} cellHeight="auto" spacing={1}>
-                {parent.childs.map((note, index) => 
+                {children.map((note, index) => 
                     <Note note={note} key={index}/>
                 )}
             </GridList>
