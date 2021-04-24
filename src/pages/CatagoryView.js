@@ -71,10 +71,10 @@ export default function CatagoryView(props) {
   return (
     <main className={classes.main}>
     <div className={classes.sameLine}>
-    <IconButton onClick={() => {history.push('/catagories')}}><ArrowBackIcon /></IconButton>
+    <IconButton onClick={() => {history.push('/categories')}}><ArrowBackIcon /></IconButton>
     <div className={classes.buttonRow} >
     <Button color="secondary" className={classes.button} onClick={() => {setLinkDialogOpen(true)}} variant="contained" aria-label="Link Notes" startIcon={<LinkIcon />}>Link Notes</Button>
-    <Button color="secondary" className={classes.button} component={LinkRouter} to={"/edit/catogory/"+parentid} variant="contained" aria-label="Edit This Catagory" startIcon={<EditIcon />}>Edit This Catagory</Button>
+    <Button color="secondary" className={classes.button} component={LinkRouter} to={"/edit/catagory/"+parentid} variant="contained" aria-label="Edit This Catagory" startIcon={<EditIcon />}>Edit This Catagory</Button>
     </div>
     </div>
     {parent && (

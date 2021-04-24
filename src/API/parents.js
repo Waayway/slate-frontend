@@ -72,3 +72,51 @@ export const get_parent_from_id = async (id) => {
     }
     return data;
 }
+
+export const change_parent = async (id, name, content) => {
+    if (!(name.length > 0) || !(content.length > 0)) {
+        throw new Error("Name or Content wasn't provided.")
+    }
+    const today = new Date();
+    const updatedate = today.getFullYear()+"-"+(today.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})+"-"+today.getDate();
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/parent/change/"+id.toString(), {
+        method: 'POST',
+        headers: header,
+        body: JSON.stringify({
+            name: name,
+            content: content,
+            updatedate: updatedate
+        })
+    });
+    const response = await fetch(request);
+    const data = await response.json()
+    if (response.status > 400 && response.status < 500) {
+        if (data.detail) {
+            throw data.detail;
+        }
+        throw data;
+    }
+    return data;
+}
+
+
+export const delete_parent = async (id) => {
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/parent/"+id.toString(), {
+        method: "DELETE",
+        headers: header
+    });
+    const response = await fetch(request);
+    const data = await response.text();
+    if (response.status > 400 && response.status < 500) {
+        if (data.detail) {
+            throw data.detail;
+        }
+        throw data;
+    }
+    return data;
+
+}

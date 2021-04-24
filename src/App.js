@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import NoteView from "./pages/NoteView";
 import NoteEdit from './pages/NoteEdit';
 import CatagoryView from "./pages/CatagoryView";
+import CatagoryEdit from "./pages/CatagoryEdit";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/edit/note/:note" component={NoteEdit} />
         <Route path="/categories" component={Categories} />
         <Route path="/catagory/:parent" component={CatagoryView} /> 
+        <Route path="/edit/catagory/:parent" component={CatagoryEdit} />
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
         <Route path="/signup" component={SignUp} />
