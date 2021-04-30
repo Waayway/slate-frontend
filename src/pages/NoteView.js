@@ -31,12 +31,14 @@ export default function NoteView(props) {
   const noteid = props.match.params.note;
   const editor = useMemo(() => withReact(createEditor()), [])
   const [note, setNote] = React.useState();
+  const [editable, setEditable] = React.useState(false);
   
 
   useEffect(() => {
     async function fetchData() {
       const note = await get_note_from_id(noteid);
       setNote(note.data);
+      setEditable(note.edit)
     }
     fetchData();
   }, [noteid]);
@@ -45,7 +47,9 @@ export default function NoteView(props) {
     <>
     <div className={classes.sameLine}>
     <IconButton onClick={() => {history.push('/notes')}}><ArrowBackIcon /></IconButton>
+    {editable && (
     <Button color="secondary" component={LinkRouter} to={"/edit/note/"+noteid} variant="contained" aria-label="Edit This Note" startIcon={<EditIcon />} className={classes.editNote}>Edit This Note</Button>
+    )}
     </div>
     {note && (
       <Box padding={2}>

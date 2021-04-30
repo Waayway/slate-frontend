@@ -98,3 +98,21 @@ export const delete_note = async (id) => {
     return data;
 
 }
+
+export const get_permission_for_parent = async (uuid) => {
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/parents/getpermission/"+uuid, {
+        method: "POST",
+        headers: header
+    });
+    const response = await fetch(request);
+    const data = await response.text();
+    if (response.status > 400 && response.status < 500) {
+        if (data.detail) {
+            throw data.detail;
+        }
+        throw data;
+    }
+    return data;
+}

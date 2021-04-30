@@ -13,6 +13,7 @@ import NoteView from "./pages/NoteView";
 import NoteEdit from './pages/NoteEdit';
 import CatagoryView from "./pages/CatagoryView";
 import CatagoryEdit from "./pages/CatagoryEdit";
+import GetPermission from "./pages/getPermission";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/profile" component={Profile} />
         <Route path="/account" component={Account} />
         <Route path="/notes" component={Notes} />
+        <Route path="/note/getpermission/:uuid" component={GetPermission} />
         <Route path="/note/:note" component={NoteView} />
         <Route path="/edit/note/:note" component={NoteEdit} />
         <Route path="/categories" component={Categories} />

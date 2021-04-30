@@ -89,7 +89,7 @@ export default function CatagoryEdit(props) {
   }
   const deleteParent = async () => {
     await delete_parent(parent.id);
-    history.push("/catagories")
+    history.push("/categories")
   }
   const change_title = async () => {
     await change_parent(parent.id, changeTitle, JSON.stringify(parentContent))

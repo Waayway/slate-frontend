@@ -120,5 +120,13 @@ export const delete_parent = async (id) => {
         throw data;
     }
     return data;
+}
 
+export const get_parents_by_permission = async () => {
+    const header = new Headers();
+    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
+    const request = new Request(Address+"/parent/permission", {headers: header})
+    const response = await fetch(request)
+    const data = await response.json()
+    return data;
 }
