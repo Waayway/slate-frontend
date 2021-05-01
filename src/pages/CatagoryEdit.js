@@ -11,9 +11,10 @@ import { useCallback } from "react";
 import isHotkey from 'is-hotkey';
 import theme from '../theme';
 import {Element, Leaf} from '../slateConfig';
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { Link as LinkRouter } from "react-router-dom";
 import { useRef } from "react";
+import { isAuthenticated } from "../API/auth";
 
 const useStyles = makeStyles({
     main: {
@@ -96,7 +97,7 @@ export default function CatagoryEdit(props) {
     setChangeTitleOpen(false);
   }
 
-  return (
+  return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : (
     <main className={classes.main}>
     <div className={classes.sameLine} >
     {parent && (<IconButton component={LinkRouter} to={"/catagory/"+parent.id}><ArrowBackIcon /></IconButton>)}

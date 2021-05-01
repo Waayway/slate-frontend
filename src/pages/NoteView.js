@@ -8,8 +8,9 @@ import { useMemo } from "react";
 import { Editable, Slate, withReact } from "slate-react";
 import { createEditor } from "slate";
 import { Element, Leaf} from '../slateConfig'
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { Link as LinkRouter } from "react-router-dom";
+import { isAuthenticated } from "../API/auth";
 
 const useStyles = makeStyles({
   main: {
@@ -43,7 +44,7 @@ export default function NoteView(props) {
     fetchData();
   }, [noteid]);
 
-  return (
+  return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : (
     <>
     <div className={classes.sameLine}>
     <IconButton onClick={() => {history.push('/notes')}}><ArrowBackIcon /></IconButton>

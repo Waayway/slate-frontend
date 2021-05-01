@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export default function Login() {
+export default function SignUp() {
     const classes = useStyles();
     const history = useHistory();
     const [username, setUsername] = React.useState('');

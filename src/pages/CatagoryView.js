@@ -11,10 +11,11 @@ import { useMemo } from "react";
 import { Editable, Slate, withReact } from "slate-react";
 import { createEditor } from "slate";
 import { Element, Leaf} from '../slateConfig'
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { Link as LinkRouter } from "react-router-dom";
 import { get_my_notes, get_permission_for_parent } from "../API/notes";
 import Note from "../components/Note";
+import { isAuthenticated } from "../API/auth";
 
 const useStyles = makeStyles({
   main: {
@@ -94,8 +95,7 @@ export default function CatagoryView(props) {
     await get_permission_for_parent(parent.permission);
     history.push("/categories")
   }
-
-  return (
+  return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : (
     <main className={classes.main}>
     <div className={classes.sameLine}>
     <IconButton onClick={() => {history.push('/categories')}}><ArrowBackIcon /></IconButton>

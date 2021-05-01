@@ -1,3 +1,4 @@
+import { Card, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import {
     useEffect
@@ -11,7 +12,21 @@ import {
     isAuthenticated
 } from '../API/auth';
 
+const useStyle = makeStyles({
+    card: {
+        marginLeft: "25%",
+        width: "50%",
+        marginTop: "3em",
+        padding: "1.5em"
+    },
+    flex: {
+        display: "flex",
+        justifyContent: "space-between",
+    }
+})
+
 function Account() {
+    const classes = useStyle();
     const [user, setUser] = React.useState();
     useEffect(() => {
         async function fetchData() {
@@ -31,7 +46,12 @@ function Account() {
         reader.readAsDataURL(file);
     }
     return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : ( <>
-        <input type="file" onChange={uploadImage} />
+        <Card className={classes.card}>
+            <div className={classes.flex}>
+                <Typography>Upload Profile Image</Typography>
+                <input type="file" onChange={uploadImage} />
+            </div>
+        </Card>
         </>
         
     )

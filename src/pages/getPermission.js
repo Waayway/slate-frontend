@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { isAuthenticated } from '../API/auth';
 import { get_permission_for_parent } from '../API/notes';
 
 export default function GetPermission(props) {
@@ -11,5 +12,5 @@ export default function GetPermission(props) {
         }
         fetchData();        
     }, [uuid])
-    return (<Redirect to="/categories" />)
+    return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : (<Redirect to="/categories" />)
 }
