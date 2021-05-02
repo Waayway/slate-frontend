@@ -24,6 +24,7 @@ export default function HomePage() {
     useEffect(() => {
         async function fetchData() {
             const notes = await get_my_notes();
+            console.log(notes)
             setNotes(notes);
         }
         fetchData();        
