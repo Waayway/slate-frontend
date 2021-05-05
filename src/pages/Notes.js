@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, GridList, makeStyles, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { isAuthenticated } from '../API/auth';
@@ -14,7 +14,9 @@ const useStyles = makeStyles({
     buttonRow: {
         display: "flex",
         justifyContent: "flex-end",
-        marginBottom: ".5em"
+        marginBottom: ".5em",
+        maxWidth: "90%",
+        marginLeft: "10%",
     },
     links: {
         textDecoration: "none",
@@ -54,11 +56,11 @@ export default function Notes() {
             <div className={classes.buttonRow}>
                 <Button color="secondary" onClick={openDialog} variant="contained" aria-label="Create A Note" startIcon={<AddIcon />}>Create A Note</Button>
             </div>
-            <GridList cols={3} cellHeight="auto" spacing={10}>
+            <Grid container spacing={2}>
                 {notes.map((note, index) => 
                     <Note note={note} key={index} />
                 )}
-            </GridList>
+            </Grid>
             <Dialog open={dialogOpen} onClose={closeDialog}>
                 <DialogTitle>Create new note</DialogTitle>
                 <DialogContent>

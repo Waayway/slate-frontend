@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     buttonRow: {
         display: "flex",
         justifyContent: "flex-end",
-        marginBottom: ".5em"
+        marginBottom: ".5em",
+        width: "100%",
     },
     links: {
         textDecoration: "none",
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
     },
     button: {
         marginLeft: 5,
+        marginBottom: 5,
       },
 })
 
@@ -49,6 +51,8 @@ export default function Notes() {
             const permissionparents = await get_parents_by_permission();
             if (permissionparents.data != null) {
                 setPermissionParents(permissionparents.data)
+            } else {
+                setPermissionParents(null)
             }
         }
         fetchData();        
@@ -83,20 +87,24 @@ export default function Notes() {
     return !isAuthenticated() ? (<Redirect to="/login" />) :  (
         <main className={classes.main}>
             <div className={classes.buttonRow}>
+                <Grid>
                 <Button color="secondary" onClick={() => {setPermissionDialogOpen(true)}} className={classes.button} variant="contained" aria-label="Get Permission for category" startIcon={<ShareIcon />}>Get Permission for category</Button>
                 <Button color="secondary" onClick={openDialog} className={classes.button} variant="contained" aria-label="Create A Note" startIcon={<AddIcon />}>Create A Catagory</Button>
+                </Grid>
             </div>
-            <GridList cols={3} cellHeight="auto" spacing={10}>
+            <GridList cols={3} cellHeight="auto" spacing={0}>
                 {parents.map((parent, index) => 
                     <Note note={parent} key={index} parent={true} />
                 )}
             </GridList>
+            {permissionParents && (<>
             <Typography variant="h4" className={classes.text}>Categories you have permission for.</Typography>
             <GridList cols={3} cellHeight="auto" spacing={10}>
                 {permissionParents.map((parent, index) => 
                     <Note note={parent} key={index} parent={true} />
                 )}
             </GridList>
+            </>)}
             <Dialog open={dialogOpen} onClose={closeDialog}>
                 <DialogContent>
                     <TextField 

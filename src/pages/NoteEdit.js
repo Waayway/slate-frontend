@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Dialog, DialogActions, DialogContent, Grid, IconButton, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
 import { FormatBold as FormatBoldIcon, FormatItalic as FormatItalicIcon, FormatUnderlined as FormatUnderlinedIcon, Code as CodeIcon, LooksOne as LooksOneIcon, LooksTwo as LooksTwoIcon, FormatQuote as FormatQuoteIcon, FormatListNumbered as FormatListNumberedIcon, FormatListBulleted as FormatListBulletedIcon, Save as SaveIcon, Edit as EditIcon, ArrowBack as ArrowBackIcon} from '@material-ui/icons';
 import { useEffect } from "react";
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -21,12 +21,10 @@ const useStyles = makeStyles({
         margin: 8,
     },
     buttonRow: {
-        position: "absolute",
-        display: "flex",
-        // flexDirection: "column",
-        justifyContent: "flex-end",
-        marginBottom: ".5em",
-        right: 10,
+      display: "flex",
+      justifyContent: "flex-end",
+      marginBottom: ".5em",
+      width: "100%",
     },
     button: {
       marginLeft: 5,
@@ -102,8 +100,10 @@ export default function NoteView(props) {
     <div className={classes.sameLine} >
     {note && (<IconButton component={LinkRouter} to={"/note/"+note.id}><ArrowBackIcon /></IconButton>)}
     <div className={classes.buttonRow}>
+      <Grid>
         <Button className={classes.button} color="secondary" variant="contained" aria-label="Delete This note" startIcon={<EditIcon />} onClick={() => setChangeTitleOpen(true)}>Change Title</Button>
         <Button className={classes.button} color="secondary" variant="contained" aria-label="Delete This note" startIcon={<RemoveIcon />} onClick={() => setDeleteNoteOpen(true)}>Delete This Note</Button>
+        </Grid>
     </div>
     </div>
     {note && (
@@ -111,6 +111,7 @@ export default function NoteView(props) {
         <Typography variant="h2" id="title">{changeTitle}</Typography>
         <Slate editor={editor} value={noteContent} onChange={e => setNoteContent(e)}>
           <Paper color="primary" className={classes.toolbar} elevation={0}>
+            <Grid>
             <MarkButton format="bold" icon={<FormatBoldIcon />} nonActiveClass={classes.nonActive} activeClass={classes.activeButton}/>
             <MarkButton format="italic" icon={<FormatItalicIcon />} nonActiveClass={classes.nonActive} activeClass={classes.activeButton}/>
             <MarkButton format="underline" icon={<FormatUnderlinedIcon />} nonActiveClass={classes.nonActive} activeClass={classes.activeButton}/>
@@ -125,6 +126,7 @@ export default function NoteView(props) {
             <IconButton onClick={saveNote}>
               <SaveIcon />
             </IconButton>
+            </Grid>
           </Paper>
           <Editable 
           renderElement={renderElement}

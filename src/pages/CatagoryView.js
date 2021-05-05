@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, FormControlLabel, FormGroup, GridList, IconButton, Link, makeStyles, Typography } from "@material-ui/core";
+import { Box, Button, Checkbox, Dialog, DialogContent, DialogTitle, FormControlLabel, FormGroup, Grid, GridList, IconButton, Link, makeStyles, Typography } from "@material-ui/core";
 import { useEffect } from "react";
 import EditIcon from '@material-ui/icons/Edit';
 import LinkIcon from '@material-ui/icons/Link';
@@ -25,15 +25,14 @@ const useStyles = makeStyles({
     display: "flex",
   },
   buttonRow: {
-    position: "absolute",
     display: "flex",
-    // flexDirection: "column",
     justifyContent: "flex-end",
     marginBottom: ".5em",
-    right: 10,
+    width: "100%",
 },
 button: {
     marginLeft: 5,
+    marginBottom: 5,
   },
 });
 
@@ -101,9 +100,11 @@ export default function CatagoryView(props) {
     <IconButton onClick={() => {history.push('/categories')}}><ArrowBackIcon /></IconButton>
     {editable && (
     <div className={classes.buttonRow} >
+      <Grid>
     <Button color="secondary" onClick={() => {setPermissionDialogOpen(true)}} className={classes.button} variant="contained" aria-label="Give Permission to User" startIcon={<ShareIcon />}>Give Permission to User</Button>
     <Button color="secondary" className={classes.button} onClick={() => {setLinkDialogOpen(true)}} variant="contained" aria-label="Link Notes" startIcon={<LinkIcon />}>Link Notes</Button>
     <Button color="secondary" className={classes.button} component={LinkRouter} to={"/edit/catagory/"+parentid} variant="contained" aria-label="Edit This Catagory" startIcon={<EditIcon />}>Edit This Catagory</Button>
+    </Grid>
     </div>
     )}
     {!editable && (

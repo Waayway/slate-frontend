@@ -21,12 +21,10 @@ const useStyles = makeStyles({
         margin: 8,
     },
     buttonRow: {
-        position: "absolute",
-        display: "flex",
-        // flexDirection: "column",
-        justifyContent: "flex-end",
-        marginBottom: ".5em",
-        right: 10,
+      display: "flex",
+      justifyContent: "flex-end",
+      marginBottom: ".5em",
+      width: "100%",
     },
     button: {
       marginLeft: 5,

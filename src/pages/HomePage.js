@@ -1,4 +1,4 @@
-import { Card, GridList, makeStyles, Typography } from '@material-ui/core';
+import { Card, Grid, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { isAuthenticated } from '../API/auth';
@@ -32,18 +32,18 @@ export default function HomePage() {
             }
         }
         fetchData();        
-    }, [])
+    }, [history])
 
     return !isAuthenticated() ? (<Redirect to="/login" />) : (
         <main className={classes.main}>
             <Card className={classes.paper}>
                 <Typography variant="h4">Recent Notes</Typography>
             </Card>
-            <GridList cols={3} cellHeight="auto" spacing={0}>
+            <Grid container spacing={2}>
                 {notes.map((note, index) => 
-                    <Note note={note} key={index}/>
+                    <Note note={note} key={index} />
                 )}
-            </GridList>
+            </Grid>
         </main>
     )
 }

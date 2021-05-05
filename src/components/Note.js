@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, GridListTile, makeStyles, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { createEditor } from "slate";
@@ -9,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: "20vh",
         overflow: "hidden",
         textOverflow: "ellipses",
+        // width: "100%",
     },
     GridListTile: {
-        marginRight: "1em"
+        // width: '100%'
     }
 }));
 
@@ -22,7 +23,7 @@ export default function Note(props) {
     var link = isParent ? "/catagory/"+note.id : "/note/"+note.id;
     const editor = useMemo(() => withReact(createEditor()), [])
     return (
-    <GridListTile className={classes.GridListTile}>
+    <Grid item className={classes.GridListTile}>
         <Link to={link} style={{textDecoration: "none"}}>
             <Card  className={classes.tile}>
                 <CardActionArea>
@@ -33,6 +34,6 @@ export default function Note(props) {
                 </CardActionArea>
             </Card>
         </Link>
-    </GridListTile>
+    </Grid>
     )
 }
