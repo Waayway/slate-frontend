@@ -41,6 +41,10 @@ const useStyles = makeStyles({
     },
     sameLine: {
       display: "flex",
+    }, 
+    paper: {
+      padding: ".5em",
+      minHeight: "98%"
     }
 });
 
@@ -72,13 +76,16 @@ export default function NoteView(props) {
   useEffect(() => {
     async function fetchData() {
       const note = await get_note_from_id(noteid);
+      if (note.data.type !== "text") {
+        history.push("/notes")
+      }
       setNote(note.data);
       setNoteContent(JSON.parse(note.data.content))
       setChangeTitle(note.data.name)
       baseNote.current = note.data;
     }
     fetchData();
-  }, [noteid]);
+  }, [noteid, history]);
 
   const saveNote = async () => {
     if (noteContent !== JSON.parse(baseNote.current.content)) {
@@ -107,7 +114,7 @@ export default function NoteView(props) {
     </div>
     </div>
     {note && (
-      <Box padding={2}>
+      <Paper padding={2} className={classes.paper}>
         <Typography variant="h2" id="title">{changeTitle}</Typography>
         <Slate editor={editor} value={noteContent} onChange={e => setNoteContent(e)}>
           <Paper color="primary" className={classes.toolbar} elevation={0}>
@@ -148,7 +155,7 @@ export default function NoteView(props) {
           }}
           />
         </Slate>
-      </Box>
+      </Paper>
     )}
     <Dialog open={changeTitleOpen} onClose={() => setChangeTitleOpen(false)}>
       <DialogContent>

@@ -33,7 +33,13 @@ export default function Notes() {
     useEffect(() => {
         async function fetchData() {
             const notes = await get_my_notes();
-            setNotes(notes);
+            var noteArray = []
+            notes.forEach(note => {
+                if(note.type === "text") {
+                    noteArray.push(note)
+                }
+            });
+            setNotes(noteArray);
         }
         fetchData();        
     }, [])

@@ -41,6 +41,10 @@ const useStyles = makeStyles({
     },
     sameLine: {
       display: "flex",
+    }, 
+    paper: {
+      padding: ".5em",
+      minHeight: "98%"
     }
 });
 
@@ -105,7 +109,7 @@ export default function CatagoryEdit(props) {
     </div>
     </div>
     {parent && (
-      <Box padding={2}>
+      <Paper padding={2} className={classes.paper}>
         <Typography variant="h2" id="title">{changeTitle}</Typography>
         <Slate editor={editor} value={parentContent} onChange={e => setParentContent(e)}>
           <Paper color="primary" className={classes.toolbar} elevation={0}>
@@ -144,7 +148,7 @@ export default function CatagoryEdit(props) {
           }}
           />
         </Slate>
-      </Box>
+      </Paper>
     )}
     <Dialog open={changeTitleOpen} onClose={() => setChangeTitleOpen(false)}>
       <DialogContent>

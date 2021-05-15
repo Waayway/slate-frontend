@@ -38,11 +38,14 @@ export default function NoteView(props) {
   useEffect(() => {
     async function fetchData() {
       const note = await get_note_from_id(noteid);
+      if (note.data.type !== "text") {
+        history.push("/notes")
+      }
       setNote(note.data);
       setEditable(note.edit)
     }
     fetchData();
-  }, [noteid]);
+  }, [noteid, history]);
 
   return !isAuthenticated() ? ( < Redirect to = "/login" / > ) : (
     <>
