@@ -1,16 +1,18 @@
-import { Address, get_user_data } from './auth';
+import { Address, get_user_data } from "./auth";
 
 export const get_my_notes = async () => {
     const user = await get_user_data();
-    return user.notes
-}
+    return user.notes;
+};
 
 export const get_note_from_id = async (id) => {
     const header = new Headers();
-    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
-    const request = new Request(Address+"/notes/id/"+id.toString(), {headers: header})
-    const response = await fetch(request)
-    const data = response.json()
+    header.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    const request = new Request(Address + "/notes/id/" + id.toString(), {
+        headers: header,
+    });
+    const response = await fetch(request);
+    const data = response.json();
     if (response.status > 400 && response.status < 500) {
         if (data.detail) {
             throw data.detail;
@@ -18,7 +20,7 @@ export const get_note_from_id = async (id) => {
         throw data;
     }
     return data;
-}
+};
 
 export const create_note = async (name, type, content) => {
     if (!(name.length > 0) || !(type.length > 0)) {
@@ -26,11 +28,19 @@ export const create_note = async (name, type, content) => {
     }
     const permission = "";
     const today = new Date();
-    const createdate = today.getFullYear()+"-"+(today.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})+"-"+today.getDate();
+    const createdate =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1).toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+            useGrouping: false,
+        }) +
+        "-" +
+        today.getDate();
     const updatedate = createdate;
     const header = new Headers();
-    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
-    const request = new Request(Address+"/notes", {
+    header.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    const request = new Request(Address + "/notes", {
         method: "POST",
         headers: header,
         body: JSON.stringify({
@@ -39,8 +49,8 @@ export const create_note = async (name, type, content) => {
             content: content,
             permission: permission,
             createdate: createdate,
-            updatedate: updatedate
-        })
+            updatedate: updatedate,
+        }),
     });
     const response = await fetch(request);
     const data = await response.json();
@@ -51,26 +61,34 @@ export const create_note = async (name, type, content) => {
         throw data;
     }
     return data;
-}
+};
 export const change_note = async (id, name, content) => {
     if (!(name.length > 0) || !(content.length > 0)) {
-        throw new Error("Name or Content wasn't provided.")
+        throw new Error("Name or Content wasn't provided.");
     }
     const today = new Date();
-    const updatedate = today.getFullYear()+"-"+(today.getMonth()+1).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})+"-"+today.getDate();
+    const updatedate =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1).toLocaleString("en-US", {
+            minimumIntegerDigits: 2,
+            useGrouping: false,
+        }) +
+        "-" +
+        today.getDate();
     const header = new Headers();
-    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
-    const request = new Request(Address+"/notes/change/"+id.toString(), {
-        method: 'POST',
+    header.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    const request = new Request(Address + "/notes/change/" + id.toString(), {
+        method: "POST",
         headers: header,
         body: JSON.stringify({
             name: name,
             content: content,
-            updatedate: updatedate
-        })
+            updatedate: updatedate,
+        }),
     });
     const response = await fetch(request);
-    const data = await response.json()
+    const data = await response.json();
     if (response.status > 400 && response.status < 500) {
         if (data.detail) {
             throw data.detail;
@@ -78,14 +96,14 @@ export const change_note = async (id, name, content) => {
         throw data;
     }
     return data;
-}
+};
 
 export const delete_note = async (id) => {
     const header = new Headers();
-    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
-    const request = new Request(Address+"/notes/"+id.toString(), {
+    header.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    const request = new Request(Address + "/notes/" + id.toString(), {
         method: "DELETE",
-        headers: header
+        headers: header,
     });
     const response = await fetch(request);
     const data = await response.text();
@@ -96,15 +114,14 @@ export const delete_note = async (id) => {
         throw data;
     }
     return data;
-
-}
+};
 
 export const get_permission_for_parent = async (uuid) => {
     const header = new Headers();
-    header.append("Authorization", "Bearer "+localStorage.getItem("token"))
-    const request = new Request(Address+"/parents/getpermission/"+uuid, {
+    header.append("Authorization", "Bearer " + localStorage.getItem("token"));
+    const request = new Request(Address + "/parents/getpermission/" + uuid, {
         method: "POST",
-        headers: header
+        headers: header,
     });
     const response = await fetch(request);
     const data = await response.text();
@@ -115,4 +132,4 @@ export const get_permission_for_parent = async (uuid) => {
         throw data;
     }
     return data;
-}
+};

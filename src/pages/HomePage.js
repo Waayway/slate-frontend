@@ -1,9 +1,9 @@
-import { Card, Grid, makeStyles, Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import { isAuthenticated } from '../API/auth';
-import { get_my_notes } from '../API/notes';
-import Note from '../components/Note';
+import { Card, Grid, makeStyles, Typography } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import { isAuthenticated } from "../API/auth";
+import { get_my_notes } from "../API/notes";
+import Note from "../components/Note";
 
 const useStyles = makeStyles({
     main: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         padding: "1em",
         display: "inline-block",
     },
-})
+});
 
 export default function HomePage() {
     const classes = useStyles();
@@ -28,22 +28,24 @@ export default function HomePage() {
             if (notes) {
                 setNotes(notes);
             } else {
-                history.push('/logout')
+                history.push("/logout");
             }
         }
-        fetchData();        
-    }, [history])
+        fetchData();
+    }, [history]);
 
-    return !isAuthenticated() ? (<Redirect to="/login" />) : (
+    return !isAuthenticated() ? (
+        <Redirect to="/login" />
+    ) : (
         <main className={classes.main}>
             <Card className={classes.paper}>
                 <Typography variant="h4">Recent Notes</Typography>
             </Card>
             <Grid container spacing={2}>
-                {notes.map((note, index) => 
+                {notes.map((note, index) => (
                     <Note note={note} key={index} />
-                )}
+                ))}
             </Grid>
         </main>
-    )
+    );
 }
